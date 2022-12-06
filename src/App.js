@@ -88,7 +88,7 @@ function App() {
                         <tr>
                           <th>Linea</th>
                           <th>Columna</th>
-                          <th>Descripcion</th>
+                          <th>Mensaje</th>
                         </tr>
                       </thead>
                       <tbody>
