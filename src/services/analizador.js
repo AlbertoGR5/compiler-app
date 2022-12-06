@@ -44,8 +44,6 @@ export const analize = (text) => {
     const vare = text.search(/[^\w]*(Vare)\s+/gm); // reemplazar
     const gobody = text.search(/[^\w]*(Gobody)\s+/gm); // reemplazar
 
-    console.log(go, finish, vare, gobody);
-
     if (go === -1) errors.push({ ...mErrors.go }); // inicio del programa
     else {
         const line = text.slice(0, go).split(lineBreak)?.length;
@@ -58,6 +56,8 @@ export const analize = (text) => {
     }
     if (finish === -1) errors.push({ ...mErrors.finish }); // final del programa
     else {
+        const finalWord = textProcessed.search(/\s(\w+)$/gm);
+        if (finish > finalWord && finalWord !== -1) errors.push({ ...mErrors, description: 'El final del programa debe estar al final del archivo con la palabra reservada "Finish"' });
         const line = text.slice(0, finish).split(lineBreak)?.length;
         const column = text.slice(0, finish).split(lineBreak)?.pop()?.length;
         if (finish < go && go !== -1) errors.push({ ...mErrors.go, description: 'El final del programa no puede estar antes del inicio "Go"', line, column });
