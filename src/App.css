@@ -5,8 +5,10 @@
 .App {
   text-align: center;
   background-color: #000000;
-  height: 100vh;
+  min-height: min-content;
+  max-height: max-content;
 }
+
 
 h1 {
   margin: 0;
@@ -36,9 +38,19 @@ textarea {
 .boton1 {
   height: 30px;
   width: 110px;
+  padding: 0.5rem;
   margin: auto 10px auto auto;
+  border-radius: 10px;
   font-size: 20px;
   background-color: gray;
+  cursor: pointer;
+}
+.boton1:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+.botones input[type="file"] {
+  display: none;
 }
 
 .boton2 {
@@ -56,11 +68,57 @@ textarea {
   height: 79vh;
 }
 
+.codigo{
+  background: url(http://i.imgur.com/2cOaJ.png);
+background-attachment: local;
+background-repeat: no-repeat;
+padding-left: 35px;
+padding-top: 10px;
+  border-color:#ccc;
+  background-color: purple;
+}
+
 .resultado {
   margin: 0 20px 0 0;
   float: right;
   width: 40%;
   height: 79vh;
+  background-color: purple;
+  border: 2px solid #efeeee;
+  font-size: 1.2rem;
+  font-weight: bolder;
+}
+
+.resultado div {
+  width: 100%;
+  height: 50vh;
+  overflow: scroll;
+}
+
+.resultado table {
+  border: 1px solid #efeeee;
+}
+th {
+  border: 1px solid #efeeee;
+}
+td {
+  border: 1px solid #efeeee;
+}
+@media (max-width: 900px) {
+  .resultado div {
+    height: 30vh;
+  }
+}
+
+.resultado p {
+  height: 7rem;
+  overflow: scroll;
+  font-size: 1rem;
+}
+
+.resultado span {
+  font-size: 2rem;
+  font-weight: bolder;
 }
 
 .App-link {
