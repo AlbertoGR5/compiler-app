@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 const mErrors = {
     caracteres: { line: 0, column: 0, description: 'Los caracteres validos son: a-z, A-Z, 0-9, (, ), {, }, [, ], ., ,, ;, :, +, -, *, /, =, >, <, !, &, |, ?, `, ", %, $' },
     go: { line: '?', column: '?', description: 'Se espera el inicio del programa con la palabra reservada Go' },
@@ -18,6 +19,7 @@ export const analize = (text) => {
 
     const errors = [];
     const warnings = [];
+
     //
     const textProcessed = text.replace(multiLineComments, '') // remove multiline comments
         .replace(simpleComments, '') // remove simple comments
@@ -35,6 +37,8 @@ export const analize = (text) => {
         errors.push({ ...mErrors.caracteres, line, column });
     });
 
+    // buscar palabras reservadas
+
     const go = text.search(/[^\w]*(Go)\s+/gm); // reemplazar
     const finish = text.replace('Finish', 'Finish ').search(/[^\w]*(Finish)\s+/gm); // reemplazar
     const vare = text.search(/[^\w]*(Vare)\s+/gm); // reemplazar
@@ -46,6 +50,8 @@ export const analize = (text) => {
     else {
         const line = text.slice(0, go).split(lineBreak)?.length;
         const column = text.slice(0, go).split(lineBreak)?.pop()?.length;
+        const start = textProcessed.search(/[^\w]*(Go)\s+/gm);
+        if (start !== 0 && start !== -1) errors.push({ ...mErrors, description: 'El inicio del programa debe estar al inicio del archivo', line, column })
         if (go > finish && finish !== -1) errors.push({ ...mErrors.finish, description: 'El inicio del programa no puede estar despues del final "Finish"', line, column });
         if (go > vare && vare !== -1) errors.push({ ...mErrors.vare, description: 'El inicio del programa no puede estar despues de la declaracion de variables "Vare"', line, column });
         if (go > gobody && gobody !== -1) errors.push({ ...mErrors.gobody, description: 'El inicio del programa no puede estar despues del inicio del cuerpo "Gobody"', line, column });

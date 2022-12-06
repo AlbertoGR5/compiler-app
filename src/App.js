@@ -76,10 +76,10 @@ function App() {
         <img className='logo' src={logo} alt='' />
         <div className='resultado'>
           <span>Terminal</span><br />
-          {results && results?.codeProcessed.length > 0 ? (
+          {results && results?.codeProcessed?.length > 0 ? (
             <React.Fragment>
               Codigo compilado
-              <p>{results && results.codeProcessed}</p>
+              <p>{results && results?.codeProcessed}</p>
               <div>
                 {(results && results?.errors?.length > 0) ? (
                   <React.Fragment>
